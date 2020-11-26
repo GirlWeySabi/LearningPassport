@@ -6,10 +6,13 @@ const models = require('../models');
 const Users = models.User;
 
 const jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken;
+
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+
 jwtOptions.secretOrKey = 'myVerySecret';
 
 module.exports = passport => {
+
     passport.use(new JwtStrategy(
         jwtOptions,(jwt_payload,done) => {
             Users.findOne({

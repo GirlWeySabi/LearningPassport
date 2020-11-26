@@ -5,8 +5,10 @@ const passport = require ('passport');
 
 /* GET users listing. */
 router.post('/register', userController.register);
-router.get('/', passport.authenticate("jwt",{session:false}), userController.getUser);
+router.get('/', userController.getAllUsers);
+router.get('/user', passport.authenticate("jwt",{session:false}), userController.getOneUser);
 router.post('/login', userController.login);
+
 
 // console.log('it works');
 

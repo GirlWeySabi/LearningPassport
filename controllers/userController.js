@@ -50,14 +50,14 @@ const login = async (req, res)=>{
      return  res.json("you have to regiter first");
     }
     
-    const checkPassword = bcrypt.compareSync(password, user.password); //what is checkpassword doing exactly?
+    const checkPassword = bcrypt.compareSync(password, user.password); //the user.
     if (!checkPassword){
         return  res.json("your password is incorrect");
     } else {
         const payload = {
             id:user.id,
            }  
-        }
+        
     
     const token = jwt.sign(payload, 'myVerySecret')
        res.json({
@@ -66,18 +66,26 @@ const login = async (req, res)=>{
            "user" : showuser,
            "statusCode" : 200
        });
+    }
 }
 
-const getUser = async (req, res)=>{
+const getAllUsers = async (req, res)=>{
   const data = await connection.User.findAll();
     res.json(data);
 
 }
 
+const getOneUser = async (req, res)=>{
+    const data = await connection.User.findOne({where: {id:req.user.id}});
+      res.json(data);
+  
+  }
+
 
 module.exports = {
     register,
-    getUser,
+    getAllUsers,
     login,
+    getOneUser
     // loginWithPassport       
 }
