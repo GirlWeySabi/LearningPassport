@@ -34,6 +34,9 @@ const login = async (req, res)=>{
            email : email
         }
        });
+
+  //-----------------------------------------------------------------------------------------------------------     
+
     const showuser = await connection.User.findOne(
         {
             where: {
@@ -50,6 +53,8 @@ const login = async (req, res)=>{
      return  res.json("you have to regiter first");
     }
     
+//-----------------------------------------------------------------------------------------------------
+
     const checkPassword = bcrypt.compareSync(password, user.password); //the user.
     if (!checkPassword){
         return  res.json("your password is incorrect");
